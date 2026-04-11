@@ -1,0 +1,20 @@
+[package]
+name = "svg2png_py"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75.0"
+
+[lib]
+name = "svg2png_py"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3  = { version = "0.21", features = ["extension-module", "abi3", "abi3-py39"] }
+resvg = "0.45"
+usvg  = "0.45"
+tiny-skia = "0.11"
+
+[profile.release]
+lto           = false
+codegen-units = 4
+opt-level     = 2

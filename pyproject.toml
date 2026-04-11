@@ -1,0 +1,28 @@
+[build-system]
+requires      = ["maturin>=1.4,<2.0"]
+build-backend = "maturin"
+
+[project]
+name            = "svg2png-py"
+version         = "0.1.0"
+description     = "Thread-safe SVG → PNG rendering for Python, powered by resvg"
+readme          = "README.md"
+requires-python = ">=3.9"
+license         = { text = "MIT" }
+authors         = [{ name = "IFSCM" }]
+keywords        = ["svg", "png", "render", "resvg", "rasterize"]
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+]
+
+[project.urls]
+Homepage   = "https://github.com/IFSCM/svg2png-py"
+Repository = "https://github.com/IFSCM/svg2png-py"
+
+[tool.maturin]
+features       = ["pyo3/extension-module"]
+module-name    = "svg2png_py"
+bindings       = "pyo3"
+python-packages = ["svg2png_py"]

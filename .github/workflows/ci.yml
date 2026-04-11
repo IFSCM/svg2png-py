@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install maturin
+        run: pip install maturin
+
+      - name: Build
+        run: maturin build --release --interpreter 3.9
+
+      - name: Install wheel
+        shell: bash
+        run: pip install target/wheels/*.whl --force-reinstall
+
+      - name: Smoke test
+        run: python -c "import svg2png_py; print(svg2png_py.FontDatabase())"
