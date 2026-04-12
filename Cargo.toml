@@ -1,20 +1,22 @@
 [package]
-name = "svg2png_py"
-version = "0.1.0"
+name    = "svg2png-py"
+version = "0.2.0"
 edition = "2021"
 rust-version = "1.75.0"
 
 [lib]
-name = "svg2png_py"
+name       = "svg2pngpy"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3  = { version = "0.21", features = ["extension-module", "abi3", "abi3-py39"] }
-resvg = "0.45"
-usvg  = "0.45"
-tiny-skia = "0.11"
+pyo3 = { version = "0.22", features = ["extension-module", "abi3", "abi3-py39"] }
+resvg   = "0.47.0"
+usvg    = "0.47.0"
+tiny-skia = "0.12.0"
+rayon   = "1.10"   # parallel render_many_par
 
 [profile.release]
-lto           = false
-codegen-units = 4
-opt-level     = 2
+lto           = "fat"   # cross-crate inlining (was false)
+codegen-units = 1       # more optimisation passes (was 4)
+opt-level     = 3       # max optimisation (was 2)
+strip         = true    # smaller wheel

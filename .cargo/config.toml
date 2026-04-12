@@ -1,0 +1,8 @@
+# Disables PyO3's global reference pool, removing the GIL-reacquire
+# synchronisation overhead on every Rust→Python boundary crossing.
+#
+# Safety constraint: do NOT drop Py<T> or PyErr values outside a
+# Python::with_gil / py.attach context. All public functions here
+# take `py: Python<'_>` as their first argument, so this is safe.
+[build]
+rustflags = ["--cfg", "pyo3_disable_reference_pool"]
