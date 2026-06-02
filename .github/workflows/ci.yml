@@ -26,7 +26,7 @@ jobs:
         run: pip install maturin
 
       - name: Build
-        run: maturin build --release --interpreter 3.9
+        run: maturin build --release --interpreter 3.11
 
       - name: Install wheel
         shell: bash
